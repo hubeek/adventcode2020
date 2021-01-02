@@ -20,17 +20,21 @@ public class Passport {
 
     public boolean isValidField(String field, String value) {
         boolean result = true;
-        switch (field){
+        switch (field) {
             case "byr":
-                int year = Integer.parseInt(value.trim());
-                if (value.length()!=4 || (year<1920||year>2002)) result = false;
+                //byr (Birth Year) - four digits; at least 1920 and at most 2002.
+                if (NotinRangeCheck(value, 1920, 2002)) result = false;
                 break;
-            case"iyr":
+            case "iyr":
+                //iyr (Issue Year) - four digits; at least 2010 and at most 2020.
+                if (NotinRangeCheck(value, 2010, 2020)) result = false;
                 break;
             case "eyr":
+                //eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
+                if (NotinRangeCheck(value, 2020, 2030)) result = false;
                 break;
             case "hgt":
-                if (value.contains("cm")||value.contains("in")){
+                if (value.contains("cm") || value.contains("in")) {
                     var measure = Integer.parseInt(value.trim().replace("in", "").replace("cm", ""));
                     if (value.contains("cm") && (measure < 150 || measure > 193)) {
                         result = false;
@@ -40,16 +44,27 @@ public class Passport {
                 } else {
                     result = false;
                 }
+                ;
                 break;
             case "hcl":
+                //hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
+                if (!value.matches("#{1}[a-f,0-9]{6}")) result = false;
                 break;
             case "ecl":
+                //ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
+                var strings = Arrays.asList("amb", "blu", "brn", "gry", "grn", "hzl", "oth");
+                if (!strings.contains(value)) result = false;
                 break;
             case "pid":
-                break;
-            default:
+                //pid (Passport ID) - a nine-digit number, including leading zeroes.
+                if(!value.matches("[0-9]{9}")) result = false;
                 break;
         }
         return result;
+    }
+
+    private boolean NotinRangeCheck(String value, int least, int most) {
+        int year = Integer.parseInt(value.trim());
+        return value.length() != 4 || year < least || year > most;
     }
 }

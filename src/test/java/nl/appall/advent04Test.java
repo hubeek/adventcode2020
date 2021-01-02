@@ -51,17 +51,25 @@ public class advent04Test {
         assertTrue(passport.isValidField("hgt","60in"));
         assertTrue(passport.isValidField("hgt","190cm"));
         assertFalse(passport.isValidField("hgt","190"));
-        /*
+        assertTrue(passport.isValidField("hcl","#123abc"));
+        assertFalse(passport.isValidField("hcl","#123abz"));
+        assertFalse(passport.isValidField("hcl","123abc"));
+        assertTrue(passport.isValidField("ecl","brn"));
+        assertFalse(passport.isValidField("ecl","wat"));
+        assertTrue(passport.isValidField("pid","000000001"));
+        assertFalse(passport.isValidField("pid","0123456789"));
 
-        hcl valid:   #123abc
-        hcl invalid: #123abz
-        hcl invalid: 123abc
+    }
 
-        ecl valid:   brn
-        ecl invalid: wat
-
-        pid valid:   000000001
-        pid invalid: 0123456789*/
+    @Test
+    public void exampleWithValidFields() throws IOException {
+        int results = advent04.getValidPassportsWithValidFields("src/test/java/nl/appall/advent04-valid.txt");
+        assertEquals(results, 4);
+    }
+    @Test
+    public void exampleWithInValidFields() throws IOException {
+        int results = advent04.getValidPassportsWithValidFields("src/test/java/nl/appall/advent04-invalid.txt");
+        assertEquals(results, 0);
     }
 
 }
