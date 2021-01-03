@@ -42,4 +42,25 @@ public class advent06Test {
         int result = advent06.calcFromGroups(answers);
         assertEquals(11, result);
     }
+
+    @Test
+    public void getSameAnswerOfGroupMembers(){
+        String answers = "abc\n" +
+                "\n" +
+                "a\n" +
+                "b\n" +
+                "c\n" +
+                "\n" +
+                "ab\n" +
+                "ac\n" +
+                "\n" +
+                "a\n" +
+                "a\n" +
+                "a\n" +
+                "a\n" +
+                "\n" +
+                "b";
+        int result = advent06.calcFromGroupsSame(answers);
+        assertEquals(6, result);
+    }
 }
