@@ -88,10 +88,6 @@ public class advent07 {
         }
     }
 
-    public static Bag findRulesBagWithColor(String color, List<Bag> bags) {
-        return bags.stream().filter(b->b.color.equals(color)).findFirst().orElse(null);
-    }
-
     public static Bag createWholeBag(String color, List<Bag> rules) {
         Bag bag = new Bag(color, rules);
         return bag;
